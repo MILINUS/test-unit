@@ -1,14 +1,36 @@
 package dao;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
-import model.Cheval;
 import model.Course;
+import model.Data;
 
 public class CourseDao {
-
-    public Course creerCourse(String nom, Date date, List<Cheval> chevaux) {
-        return new Course(nom, date, chevaux);
+    
+    public CourseDao() {
+        Data.setCourses(new ArrayList<Course>());
     }
 
+    public boolean creerCourse(Course course) {
+        return Data.getCourses().add(course);
+    }
+    
+    public List<Course> obtenirCourses() {
+        return Data.getCourses();
+    }
+    
+    public Course getCourseParNom(String nomCourse) {
+        Course course = null;
+        for (Course c : obtenirCourses()) {
+            if (c.getNom().equals(nomCourse)) {
+                course = c;
+            }
+        }
+        return course;
+    }
+    
+    public boolean supprimerCourse(Course course) {
+        return Data.getCourses().remove(course);
+    }
+    
 }
