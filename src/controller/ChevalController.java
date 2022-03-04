@@ -12,25 +12,25 @@ public class ChevalController {
         chevalDao = new ChevalDao();
     }
 
-    public boolean creerCheval(String nom, int age) {
+    public boolean creerCheval(String nomCheval, int ageCheval) {
         // Gestion des erreurs
-        if (nom == null || age <= 0 || age > 50) {
-            if (age <= 0) {
+        if (nomCheval == null || ageCheval <= 0 || ageCheval > 50) {
+            if (ageCheval <= 0) {
                 System.out.println("Merci d'ajouter un cheval qui peut exister");
             }
-            if (age > 50) {
+            if (ageCheval > 50) {
                 System.out.println("Votre cheval très certainement mort");
             }
             return false;
         }
         for (Cheval cheval : Data.getChevaux()) {
-            if (cheval.getNom().equals(nom)) {
+            if (cheval.getNom().equals(nomCheval)) {
                 System.out.println("Un cheval avec le même nom existe déjà");
                 return false;
             }
         }
         // -----------------------------------------
-        Cheval cheval = new Cheval(nom, age, 0);
+        Cheval cheval = new Cheval(nomCheval, ageCheval, 0);
         return chevalDao.creerCheval(cheval);
     }
 
@@ -53,8 +53,33 @@ public class ChevalController {
             return false;
         }
         // -----------------------------------------
-        chevalDao.supprimerCheval(cheval);
-        return true;
+        return chevalDao.supprimerCheval(cheval);
     }
-
+    
+    public boolean modifierCheval(String ancienNomCheval, String nouveauNomCheval, int nouvelAgeCheval) {
+        Cheval cheval = chevalDao.getChevalParNom(ancienNomCheval);
+        // Gestion des erreurs
+        if (cheval == null) {
+            System.out.println("Le cheval à modifier n'existe pas");
+            return false;
+        }
+        if (nouveauNomCheval == null || nouvelAgeCheval <= 0 || nouvelAgeCheval > 50) {
+            if (nouvelAgeCheval <= 0) {
+                System.out.println("Merci d'ajouter un cheval qui peut exister");
+            }
+            if (nouvelAgeCheval > 50) {
+                System.out.println("Votre cheval très certainement mort");
+            }
+            return false;
+        }
+        for (Cheval c : Data.getChevaux()) {
+            if (c.getNom().equals(nouveauNomCheval)) {
+                System.out.println("Un cheval avec le même nom existe déjà");
+                return false;
+            }
+        }
+        // -----------------------------------------
+        return chevalDao.modifierCheval(cheval, nouveauNomCheval, nouvelAgeCheval);
+    }
+    
 }

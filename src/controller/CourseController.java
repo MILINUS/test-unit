@@ -13,11 +13,11 @@ import utilitaire.Utilitaire;
 public class CourseController {
 
     CourseDao courseDao;
-    
+
     public CourseController() {
         courseDao = new CourseDao();
     }
-    
+
     public boolean creerCourse(String nom, Date date) {
         // Gestion des erreurs
         if (nom == null || date == null) {
@@ -36,22 +36,22 @@ public class CourseController {
         }
         // -----------------------------------------
         System.out.println("Pas d'inquiétude les chevaux sont venus s'inscrire seul à la course");
-        
+
         List<Cheval> chevaux = new ArrayList<>();
         List<Cheval> listChevauxTemp = new ArrayList<>();
         listChevauxTemp.addAll(Data.getChevaux());
-      
+
         while (chevaux.size() != 6) {
             Cheval chevalRandom = listChevauxTemp.get(new Random().nextInt(listChevauxTemp.size()));
 
             chevaux.add(chevalRandom);
             listChevauxTemp.remove(chevalRandom);
-        }  
-        
+        }
+
         Course course = new Course(nom, date, chevaux);
         return courseDao.creerCourse(course);
     }
-    
+
     public void voirCourses() {
         // Gestion des erreurs
         if (Data.getCourses().size() == 0) {
@@ -63,21 +63,45 @@ public class CourseController {
             System.out.println("Chevaux : ");
             for (Cheval cheval : course.getChevaux()) {
                 System.out.println("Nom : " + cheval.getNom() + " | Age : " + cheval.getAge() + " | Victoire : " + cheval.getNbVictoire());
-            }  
+            }
             System.out.println("");
         }
     }
-    
+
     public boolean supprimerCourseParNom(String nomCourse) {
         Course course = courseDao.getCourseParNom(nomCourse);
-         // Gestion des erreurs
+        // Gestion des erreurs
         if (course == null) {
             System.out.println("La course à supprimer n'existe pas");
             return false;
         }
         // -----------------------------------------
-        courseDao.supprimerCourse(course);
-        return true;
+        return courseDao.supprimerCourse(course);
     }
-    
+
+    public boolean modifierCourse(String ancienNomCourse, String nouveauNomCourse, Date nouvelleDateCourse) {
+        Course course = courseDao.getCourseParNom(ancienNomCourse);
+        // Gestion des erreurs
+        if (course == null) {
+            System.out.println("La course à modifier n'existe pas");
+            return false;
+        }
+        if (nouvelleDateCourse == null || nouvelleDateCourse == null) {
+            System.out.println("Erreur dans la modification de la course");
+            return false;
+        }
+        if (nouvelleDateCourse.before(Utilitaire.obtenirDateDeLaVeille())) {
+            System.out.println("La course à déjà eu lieu");
+            System.out.println("Veuillez saisir une autre date");
+            return false;
+        }
+        if (Data.getChevaux().size() < 6) {
+            System.out.println("Il manque des chevaux pour créer une course");
+            System.out.println("Veuillez créer au moins 6 chevaux auparavant");
+            return false;
+        }
+        // -----------------------------------------
+        return courseDao.modifierCourse(course, nouveauNomCourse, nouvelleDateCourse);
+    }
+
 }
