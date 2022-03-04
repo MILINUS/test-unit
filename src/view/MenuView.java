@@ -62,6 +62,19 @@ public class MenuView {
                 break;
             case "3":
                 System.out.println("-----------------------------------------------------------");
+                System.out.println("3 : Modifier une course");
+                System.out.println("Saisissez le nom de la course à modifier : ");
+                String ancienNomCourse = Utilitaire.saisieString();
+                System.out.println("Saisissez le nouveau nom de la course : ");
+                String nouveauNomCourse = Utilitaire.saisieString();
+                Date nouvelleDateCourse = new Date();
+                try {
+                    System.out.println("Saisissez une date pour la course au format : JJ/MM/AAAA");
+                    nouvelleDateCourse = Utilitaire.saisieDate();
+                } catch (Exception e) {
+                    System.out.println("Erreur sur la saisie de la date.");
+                }
+                courseController.modifierCourse(ancienNomCourse, nouveauNomCourse, nouvelleDateCourse);
                 System.out.println("-----------------------------------------------------------");
                 break;
             case "4":
@@ -90,6 +103,14 @@ public class MenuView {
                 break;
             case "7":
                 System.out.println("-----------------------------------------------------------");
+                System.out.println("7 : Modifier un cheval");
+                System.out.println("Saisissez le nom du cheval à modifier : ");
+                String ancienNomCheval = Utilitaire.saisieString();
+                System.out.println("Saisissez le nouveau nom du cheval : ");
+                String nouveauNomCheval = Utilitaire.saisieString();
+                System.out.println("Saisissez l'âge du cheval : ");
+                int nouvelAgeCheval = Utilitaire.saisieInt();
+                chevalController.modifierCheval(ancienNomCheval, nouveauNomCheval, nouvelAgeCheval);
                 System.out.println("-----------------------------------------------------------");
                 break;
             case "8":
