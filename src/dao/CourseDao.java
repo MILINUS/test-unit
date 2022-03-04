@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import model.Course;
 import model.Data;
@@ -31,6 +32,12 @@ public class CourseDao {
     
     public boolean supprimerCourse(Course course) {
         return Data.getCourses().remove(course);
+    }
+    
+    public boolean modifierCourse(Course course, String nouveauNomCourse, Date nouvelleDateCourse) {
+        course.setNom(nouveauNomCourse);
+        course.setDate(nouvelleDateCourse);
+        return true;
     }
     
 }

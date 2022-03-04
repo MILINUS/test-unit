@@ -33,4 +33,9 @@ public class ChevalDao {
         return Data.getChevaux().remove(cheval);
     }
 
+    public boolean modifierCheval(Cheval cheval, String nouveauNomCheval, int nouvelAgeCheval) {
+        cheval.setNom(nouveauNomCheval);
+        cheval.setAge(nouvelAgeCheval);
+        return true;
+    }
 }
