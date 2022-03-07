@@ -38,4 +38,9 @@ public class ChevalDao {
         cheval.setAge(nouvelAgeCheval);
         return true;
     }
+    
+    public boolean ajouterVictoireCheval(Cheval cheval) {
+        cheval.setNbVictoire(cheval.getNbVictoire() + 1); 
+        return true;
+    }
 }
