@@ -1,6 +1,7 @@
 package controller;
 
 import dao.ChevalDao;
+import java.util.List;
 import model.Cheval;
 import model.Data;
 
@@ -82,4 +83,8 @@ public class ChevalController {
         return chevalDao.modifierCheval(cheval, nouveauNomCheval, nouvelAgeCheval);
     }
     
+    
+    public boolean ajouterVictoireCheval(Cheval cheval) {
+        return chevalDao.ajouterVictoireCheval(cheval);
+    }
 }

@@ -103,5 +103,23 @@ public class CourseController {
         // -----------------------------------------
         return courseDao.modifierCourse(course, nouveauNomCourse, nouvelleDateCourse);
     }
+    
+    public Cheval lancerCourse(Course course) { 
+        Cheval cheval = course.getChevaux().get(new Random().nextInt(course.getChevaux().size()));
+        System.out.println("La course a été lancée correctement");
+        System.out.println("Et c'est " + cheval.getNom() + " qui l'emporte à l'issue d'une course effrénée ! Bravo !");
+        return  cheval;
+    }
+    
+    public Course obtenirCourseParNom(String nomCourse) {
+        Course course = courseDao.getCourseParNom(nomCourse);
+        // Gestion des erreurs
+        if (course == null) {
+            System.out.println("La course n'existe pas");
+            return null;
+        }
+        // -----------------------------------------
+        return course;
+    }
 
 }
