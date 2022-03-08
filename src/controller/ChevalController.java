@@ -15,7 +15,7 @@ public class ChevalController {
 
     public boolean creerCheval(String nomCheval, int ageCheval) {
         // Gestion des erreurs
-        if (nomCheval == null || ageCheval <= 0 || ageCheval > 50) {
+        if (nomCheval == "" || ageCheval <= 0 || ageCheval > 50) {
             if (ageCheval <= 0) {
                 System.out.println("Merci d'ajouter un cheval qui peut exister");
             }
@@ -64,7 +64,7 @@ public class ChevalController {
             System.out.println("Le cheval à modifier n'existe pas");
             return false;
         }
-        if (nouveauNomCheval == null || nouvelAgeCheval <= 0 || nouvelAgeCheval > 50) {
+        if (nouveauNomCheval == "" || nouvelAgeCheval <= 0 || nouvelAgeCheval > 50) {
             if (nouvelAgeCheval <= 0) {
                 System.out.println("Merci d'ajouter un cheval qui peut exister");
             }

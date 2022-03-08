@@ -20,7 +20,7 @@ public class CourseController {
 
     public boolean creerCourse(String nom, Date date) {
         // Gestion des erreurs
-        if (nom == null || date == null) {
+        if (nom == "" || date == null) {
             System.out.println("Erreur dans la création de la course");
             return false;
         }
@@ -86,7 +86,7 @@ public class CourseController {
             System.out.println("La course à modifier n'existe pas");
             return false;
         }
-        if (nouvelleDateCourse == null || nouvelleDateCourse == null) {
+        if (nouveauNomCourse == "" || nouvelleDateCourse == null) {
             System.out.println("Erreur dans la modification de la course");
             return false;
         }
@@ -104,11 +104,16 @@ public class CourseController {
         return courseDao.modifierCourse(course, nouveauNomCourse, nouvelleDateCourse);
     }
     
-    public Cheval lancerCourse(Course course) { 
-        Cheval cheval = course.getChevaux().get(new Random().nextInt(course.getChevaux().size()));
-        System.out.println("La course a été lancée correctement");
-        System.out.println("Et c'est " + cheval.getNom() + " qui l'emporte à l'issue d'une course effrénée ! Bravo !");
-        return  cheval;
+    public Cheval lancerCourse(Course course) {
+    	if (course.getChevaux().size() >= 2) {
+            Cheval cheval = course.getChevaux().get(new Random().nextInt(course.getChevaux().size()));
+            System.out.println("La course a été lancée correctement");
+            System.out.println("Et c'est " + cheval.getNom() + " qui l'emporte à l'issue d'une course effrénée ! Bravo !");
+            return cheval;    		
+    	}
+    	else {
+    		return null;
+    	}
     }
     
     public Course obtenirCourseParNom(String nomCourse) {
